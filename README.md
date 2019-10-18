@@ -54,3 +54,8 @@ By default this will determine where your app is and decide which storage to use
 If your app is SSR (server side rendered), a flag will be set and it will default to using `Cookies` for storage
 If your app is CSR (client side rendered), in the `browser` it will default to `localStorage`
 If your app is Native, it will default to [`AsyncStorage`](https://facebook.github.io/react-native/docs/asyncstorage)
+
+### Others
+- [react-use-localstorage](https://github.com/dance2die/react-use-localstorage/blob/master/src/index.ts)
+- [react-use useSessionStorage](https://github.com/streamich/react-use/blob/master/docs/useSessionStorage.md)
+- [youtube nextjs - persist state with cookies](https://www.youtube.com/watch?v=_AYuhmz-fX4&t=0s)
