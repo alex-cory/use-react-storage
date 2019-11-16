@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import useSSR from 'use-ssr'
 
 
-const useSessionStorage = <T>(key: string, initialValue?: T, raw?: boolean): [T, (value: T) => void] => {
+/**
+ * TODO
+ * THIS DOES NOT CURRENTLY WORK
+ */
+export const useSessionStorage = <T>(key: string, initialValue?: T, raw?: boolean): [T, (value: T) => void] => {
   const { isServer, isNative } = useSSR()
   if (isServer || isNative) {
     return [initialValue as T, () => {}];

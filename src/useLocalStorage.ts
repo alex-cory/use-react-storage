@@ -1,62 +1,61 @@
-import { Dispatch, useState, useEffect } from 'react';
-import useSSR from 'use-ssr'
+import { useState, useCallback } from 'react'
+import { tryToParse, isObject, isString } from './utils'
+// import useSSR from 'use-ssr'
 
-// export default function useLocalStorage(
-//   key: string,
-//   initialValue: string = ''
-// ): [string, Dispatch<string>] {
-//   const [value, setValue] = React.useState(
-//     () => localStorage.getItem(key) || initialValue
-//   );
-
-//   React.useEffect(() => {
-//     localStorage.setItem(key, value);
-//   }, [value]);
-
-//   return [value, setValue];
-// }
-
-
-// import { useEffect, useState } from 'react';
-// import { isClient } from './util';
-
-type Dispatch<A> = (value: A) => void;
-type SetStateAction<S> = S | ((prevState: S) => S);
-
-const useLocalStorage = <T>(key: string, initialValue?: T, raw?: boolean): [T, Dispatch<SetStateAction<T>>] => {
-  const { isServer, isNative } = useSSR()
-  if (isServer || isNative) {
-    return [initialValue as T, () => {}];
-  }
-
-  const [state, setState] = useState<T>(() => {
-    try {
-      const localStorageValue = localStorage.getItem(key);
-      if (typeof localStorageValue !== 'string') {
-        localStorage.setItem(key, raw ? String(initialValue) : JSON.stringify(initialValue));
-        return initialValue;
+export function useLocalStorage(
+  keyOrObj?: any,
+  defaultVal?: string
+) {
+  const parseStorage = useCallback((storage: {}) => {
+    return Object.entries(storage).reduce((acc, [key, val]) => {
+      if (isString(keyOrObj) && keyOrObj === key && !val) {
+        (acc as any)[key] = defaultVal
       } else {
-        return raw ? localStorageValue : JSON.parse(localStorageValue || 'null');
+        (acc as any)[key] = tryToParse(val as string)
       }
-    } catch {
-      // If user is in private mode or has storage restriction
-      // localStorage can throw. JSON.parse and JSON.stringify
-      // can throw, too.
-      return initialValue;
+      return acc
+    }, {})
+  }, [isString, keyOrObj, tryToParse, defaultVal])
+
+  const [storageObj, setStorageObj] = useState(() => parseStorage(localStorage))
+
+  const updateStorageObj = useCallback(() => setStorageObj(parseStorage(localStorage)), [setStorageObj, parseStorage])
+
+  const set = useCallback((keyOrObj: string | {}, val?: string) => {
+    if (isObject(keyOrObj)) {
+      Object.entries(keyOrObj).forEach(([k, v]) => {
+        localStorage.setItem(k, v as string)
+      })
+    } else {
+      if (!val) throw Error('must have a value. i.e. `set("key", "value")`')
+      localStorage.setItem(keyOrObj, val)
     }
-  });
+    updateStorageObj()
+  }, [updateStorageObj])
 
-  useEffect(() => {
-    try {
-      const serializedState = raw ? String(state) : JSON.stringify(state);
-      localStorage.setItem(key, serializedState);
-    } catch {
-      // If user is in private mode or has storage restriction
-      // localStorage can throw. Also JSON.stringify can throw.
+  const remove = useCallback((...keys) => {
+    if (keys.length > 1) {
+      keys.forEach(key => localStorage.removeItem(key))
+    } else {
+      if (keys.length === 0) throw Error('must have a key to remove. i.e. `remove("key1", "key2")`')
+      localStorage.removeItem(keys[0])
     }
-  }, [state]);
+    updateStorageObj()
+  }, [updateStorageObj])
 
-  return [state, setState];
-};
+  const clear = useCallback(() => {
+    localStorage.clear()
+    updateStorageObj()
+  }, [updateStorageObj])
 
-export default useLocalStorage;
+  const value = isString(keyOrObj) ? (storageObj as any)[keyOrObj] : storageObj
+  const setArr = (v: any) => isString(keyOrObj) ? set(keyOrObj, v) : set(v as any)
+  const removeArr = (v?: string) => isString(keyOrObj) ? remove(keyOrObj) : remove(v)
+
+  return Object.assign([value, setArr, removeArr], {
+    ...storageObj,
+    set,
+    remove,
+    clear,
+  })
+}
