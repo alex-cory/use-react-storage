@@ -89,3 +89,5 @@ If your app is Native, it will default to [`AsyncStorage`](https://facebook.gith
 - [react-use-localstorage](https://github.com/dance2die/react-use-localstorage/blob/master/src/index.ts)
 - [react-use useSessionStorage](https://github.com/streamich/react-use/blob/master/docs/useSessionStorage.md)
 - [youtube nextjs - persist state with cookies](https://www.youtube.com/watch?v=_AYuhmz-fX4&t=0s)
+- [react-native-storage](https://github.com/sunnylqm/react-native-storage)
+- [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
