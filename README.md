@@ -69,6 +69,7 @@ Usage
 ```jsx
 import useStorage, {
   useLocalStorage,
+  useCookie,         // NOT IMPLEMENTED YET
   useSessionStorage, // NOT IMPLEMENTED YET
   useNativeStorage   // NOT IMPLEMENTED YET
 } = 'use-react-storage'
