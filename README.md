@@ -1,7 +1,7 @@
 # use-storage
 Hook for storage
 
-This is a catchall for local storage in your apps.
+This is a catchall for local storage in your apps. The syntax below is the same for all the hooks in the lib.
 
 ### Object Destructuring
 
