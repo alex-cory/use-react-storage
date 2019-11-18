@@ -40,6 +40,7 @@
     🕋 React hook using local storage on SSR, CSR, and React Native apps
     <br/>
   </sup>
+    ⚠ This is under active development. Stay tuned ⚠
 </div>
 
 <br/>
