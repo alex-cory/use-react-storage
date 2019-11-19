@@ -1,20 +1,22 @@
 import useSSR from 'use-ssr'
-import { useNativeStorage, useLocalStorage } from '.'
+import { useNativeStorage, useLocalStorage, useCookie } from '.'
 
 
 type StorageArgs = [({} | string)?, string?]
 
 export const useStorage = (...args: StorageArgs) => {
-  // const { device } = useSSR()
-  const { isBrowser, isNative } = useSSR()
-  let device = 'server'
-  if (isNative) device = 'native'
-  if (isBrowser) device = 'browser'
+  let { device } = useSSR()
 
   const hooks = {
-    native: useNativeStorage(...args),
+    native: () => {
+      console.warn('NOT IMPLEMENTED YET')
+      return useNativeStorage(...args)
+    },
     browser: useLocalStorage(...args),
-    server: () => {} // useCookieStorage(),
+    server: () => {
+      console.warn('NOT IMPLEMENTED YET')
+      return useCookie(...args)
+    },
   }
   
   return (hooks as any)[device]

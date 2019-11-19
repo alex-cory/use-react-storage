@@ -9,3 +9,4 @@
 //   prev[name] = value;
 //   return prev
 // }, {});
+export const useCookie = (objOrString?: {} | string, str?: string): {} => ({})

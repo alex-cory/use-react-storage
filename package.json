@@ -9,7 +9,7 @@
     "url": "https://github.com/alex-cory/use-storage.git"
   },
   "dependencies": {
-    "use-ssr": "^1.0.19"
+    "use-ssr": "^1.0.21"
   },
   "peerDependencies": {
     "react": "^16.8.6",
