@@ -94,6 +94,9 @@ const App = () => {
   // usages for `set`
   set({ someKey1: 'new value for someKey1' }) // for multi setting items
   set('someKey1', 'new value for someKey1')   // for setting individual item
+  // when the hook has a string argument such as useStorage('someKey1', 'default'), we assume if
+  // `set` has 1 string argument like below, that it is setting 'someKey1'
+  set('value for someKey1')
 
   // usages for `remove`
   remove('someKey1', 'someKey2') // would remove both items from storage
