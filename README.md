@@ -102,6 +102,16 @@ const App = () => {
   // usages for `remove`
   remove('someKey1', 'someKey2') // would remove both items from storage
   
+  // usages for `merge`
+  merge('person[23eqad-person-id].name', 'Alex') // I think people will like this one more
+  merge({ // this syntax is up in the air, might do it in a callbacky kinda way like useState's setState(x => ({ ...x }))
+    person: {
+      [23eqad-person-id]: {
+        name: 'Alex'
+      }
+    }
+  })
+  
   // OR
   const {
     someKey1,
