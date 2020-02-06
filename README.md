@@ -85,6 +85,7 @@ const App = () => {
     someKey2,         // can grab the `items/keys` right out
     set,              // sets/overwrites the specified items
     merge,            // merges the items
+    has,
     remove,           // removes the specified items
     clear,            // clears the storage
     flushGetRequests, // NOT IMPLEMENTED YET (Native Only)
@@ -117,6 +118,7 @@ const App = () => {
     someKey1,
     someKey2,
     set,
+    has,
     merge,
     remove,
     clear,
