@@ -60,7 +60,11 @@ Features
 - SSR (server side rendering) support
 - TypeScript support
 - 1 dependency ([use-ssr](https://github.com/alex-cory/use-ssr))
-<!-- - React Native support -->
+- 🚫 React Native support
+- 🚫 [Ionic](https://ionicframework.com/docs/building/storage) suport
+- 🚫 Persistent Storage
+- 🚫 [localForge](https://github.com/localForage/localForage) support
+- 🚫 Server localStorage support ([redux-persist-node-storage](https://github.com/pellejacobs/redux-persist-node-storage))
 
 Usage
 -------
@@ -70,9 +74,12 @@ Usage
 ```jsx
 import useStorage, {
   useLocalStorage,
-  useCookie,         // NOT IMPLEMENTED YET
-  useSessionStorage, // NOT IMPLEMENTED YET
-  useNativeStorage   // NOT IMPLEMENTED YET
+  useCookie,          // NOT IMPLEMENTED YET
+  useSessionStorage,  // NOT IMPLEMENTED YET
+  useNativeStorage,   // NOT IMPLEMENTED YET
+  useIonicStorage,    // NOT IMPLEMENTED YET
+  useLocalForge,      // NOT IMPLEMENTED YET
+  useServerStorage.   // NOT IMPLEMENTED YET
 } = 'use-react-storage'
 
 const App = () => {
@@ -171,3 +178,4 @@ If your app is Native, it will default to [`AsyncStorage`](https://facebook.gith
 - [youtube nextjs - persist state with cookies](https://www.youtube.com/watch?v=_AYuhmz-fX4&t=0s)
 - [react-native-storage](https://github.com/sunnylqm/react-native-storage)
 - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
+- [apollo-cache-persist](https://github.com/apollographql/apollo-cache-persist#storage-providers)
